@@ -41,7 +41,7 @@ public class ParallaxScrollView extends HorizontalScrollView {
             }
         }
     }
-    
+
     @Override
     public void scrollTo(int x, int y) {
         super.scrollTo((int)(x * mRatio), y);
@@ -50,8 +50,8 @@ public class ParallaxScrollView extends HorizontalScrollView {
     public void setScrollRatio(float ratio) {
         mRatio = ratio;
     }
-    
-    private void init(){
+
+    private void init() {
         setScrollRatio(1f);
     }
 
@@ -69,30 +69,30 @@ public class ParallaxScrollView extends HorizontalScrollView {
         super(context);
         init();
     }
-    
+
     /**
      * タッチイベントを伝播する<br>
-     *
+     * 
      */
     public static class OnTouchDispatcher implements View.OnTouchListener {
-        
+
         /** イベントの伝播先 */
         private final View mTarget;
         /** trueなら自身のタッチイベントを抑止(スクロールなど) */
         private final boolean mConsume;
-        
+
         /**
          * @param receiver イベントの伝播先 伝播させない場合はnull
          * @param consume trueタッチイベントを消費する
          */
-        public OnTouchDispatcher(View receiver, boolean consume){
+        public OnTouchDispatcher(View receiver, boolean consume) {
             mTarget = receiver;
             mConsume = consume;
         }
-        
+
         @Override
         public boolean onTouch(View v, MotionEvent e) {
-            if(mTarget != null){
+            if(mTarget != null) {
                 mTarget.dispatchTouchEvent(e);
             }
             return mConsume;

@@ -10,7 +10,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
 public class ParallaxActivity extends Activity {
-    
+
     private static final String TAG = ParallaxActivity.class.getSimpleName();
 
     ParallaxScrollView mLayer1;
@@ -32,17 +32,16 @@ public class ParallaxActivity extends Activity {
         mLayer2.setOnTouchListener(new OnTouchDispatcher(mLayer3, true));
         // タッチを伝播しない
         mLayer3.setOnTouchListener(new OnTouchDispatcher(null, true));
-        
+
     }
-    
+
     /**
-     * mScroll1 width: w1
-     * mScroll2 width: w2
-     *  可動右端 l = w - (描画領域横幅)
-     *  ratio = l2/l1
-     *  @return 
+     * 右端と左端がちゃんと揃うように比率計算したい
+     * 
+     * @return スクロール比率
      */
-    private float getLayerWidthRatio(HorizontalScrollView baseLayer, HorizontalScrollView backLayer){
+    private float getLayerWidthRatio(HorizontalScrollView baseLayer,
+                                     HorizontalScrollView backLayer) {
         View base = baseLayer.getChildAt(0);
         View back = backLayer.getChildAt(0);
         int w = getWindowManager().getDefaultDisplay().getWidth();
@@ -50,22 +49,31 @@ public class ParallaxActivity extends Activity {
         Log.d(TAG, "ratio: " + r + ", width: " + back.getWidth());
         return r;
     }
-    
+
+    /**
+     * onCreateとかonResumeだと幅取れない(多分)
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         Log.d(TAG, "onWindowFocusChanged");
         super.onWindowFocusChanged(hasFocus);
-        if(!hasFocus) return;
+        if(!hasFocus)
+            return;
         float ratio2 = getLayerWidthRatio(mLayer1, mLayer2);
         float ratio3 = getLayerWidthRatio(mLayer1, mLayer3);
         // layer2,3を1に追従させる
         mLayer1.addBackLayer(mLayer2, ratio2).addBackLayer(mLayer3, ratio3);
     }
-    
-    public void onButtonClick(View v){
+
+    /**
+     * めんどうなのでとりあえずxmlのandroid:onClickで
+     * 
+     * @param v
+     */
+    public void onButtonClick(View v) {
         String text = ((Button)v).getText().toString() + " clicked.";
         Log.d(TAG, text);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
-    
+
 }
