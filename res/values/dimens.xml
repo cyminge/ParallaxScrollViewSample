@@ -1,0 +1,8 @@
+<resources> <!-- 3 -->
+    <dimen name="he_para3_width">400dp</dimen>
+    <!-- 2 -->
+    <dimen name="he_para2_width">640dp</dimen>
+    <!-- 1 -->
+    <dimen name="he_para1_width">960dp</dimen>
+    
+</resources>    
