@@ -17,16 +17,19 @@ public class ParallaxScrollView extends HorizontalScrollView {
     /**
      * このレイヤーと一緒に動かす背景を設定
      * 
-     * @param hsv このレイヤーと一緒に動かす背景. nullを渡すとそれまでaddしたレイヤーがクリアされる
+     * @param psv このレイヤーと一緒に動かす背景. nullを渡すとそれまでaddしたレイヤーがクリアされる
      * @return this
      */
-    public ParallaxScrollView addBackLayer(ParallaxScrollView hsv, float ratio) {
+    public ParallaxScrollView addBackLayer(ParallaxScrollView psv, float ratio) {
         if(mBackLayers == null) {
             mBackLayers = new ArrayList<ParallaxScrollView>();
         }
-        mBackLayers.add(hsv);
-        hsv.setScrollRatio(ratio);
-
+        if(psv == null) {
+            mBackLayers.clear();
+        }else {
+            mBackLayers.add(psv);
+            psv.setScrollRatio(ratio);
+        }
         return this;
     }
 
@@ -35,8 +38,8 @@ public class ParallaxScrollView extends HorizontalScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
         // 力技
         if(mBackLayers != null) {
-            for(ParallaxScrollView hsv: mBackLayers) {
-                hsv.scrollTo(l, 0);
+            for(ParallaxScrollView psv: mBackLayers) {
+                psv.scrollTo(l, 0);
             }
         }
     }
