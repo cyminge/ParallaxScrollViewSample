@@ -19,9 +19,8 @@ public class ParallaxScrollView extends HorizontalScrollView {
      * 
      * @param hsv このレイヤーと一緒に動かす背景. nullを渡すとそれまでaddしたレイヤーがクリアされる
      * @return this
-     * @throws IllegalArgumentException setTagで適切なratio(Float)が設定されていない
      */
-    public ParallaxScrollView addBackLayer(ParallaxScrollView hsv, float ratio) throws IllegalArgumentException {
+    public ParallaxScrollView addBackLayer(ParallaxScrollView hsv, float ratio) {
         if(mBackLayers == null) {
             mBackLayers = new ArrayList<ParallaxScrollView>();
         }
